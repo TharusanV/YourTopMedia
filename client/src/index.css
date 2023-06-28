@@ -1,0 +1,149 @@
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-color: #212121;
+}
+
+/* NAVBAR SECTION */
+.navbar-container{
+  z-index: 100;
+  width: 100%;
+  height: 64px !important;
+  background-color: #212121;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  
+}
+
+.navbar.scrolled {
+  background-color: transparent;
+}
+
+.navbar-section {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-hamburger-menu {
+  width: 24px;
+  height: 24px;
+  margin: 17px;
+}
+
+.navbar-title {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  padding-left: 32px;
+  padding-right: 32px;
+  border-right: 1px solid gray;
+}
+
+.navbar-secondary-title {
+  color: gray;
+  font-size: 15px;
+  margin: 0;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.navbar-search-bar {
+  display: flex;
+  align-items: center;
+  width: 300px;
+  height: 40px;
+  background-color: #303030;
+  border-radius: 100px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 15px;
+  border: none;
+  outline: none;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/* HOME PAGE */
+.home-container{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-color: black;
+}
+
+.media-header-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 24px 20px 24px;
+  background-color: #212121;
+  border-radius: 3px;
+  border-bottom: 1px solid #3a3c3f;
+}
+
+.media-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative; /* Add position: relative for overlay positioning */
+}
+
+.media-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.media-card-overlay-title{
+  font-weight: bold;
+  font-size: 24px;
+  color: white;
+}
+
+.media-card-overlay-description{
+  color: grey;
+}
+
+.media-card img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+
+.top-media-section{
+  padding: 20px 24px 20px 24px;
+  height: 100%;
+  background-color: #303030;
+}
+
+.top-media-section-header{
+  color: white;
+}
+
+
+.title-line{
+  background: white;
+  color: white;
+  border-color: white;
+  height: 3px;
+  width: 10%;
+}
+
+.top-tvshow-section, .top-film-section, .top-anime-section{
+  padding-bottom: 20px;
+}

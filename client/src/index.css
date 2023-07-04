@@ -66,6 +66,7 @@ input[type="text"] {
   padding: 15px;
   border: none;
   outline: none;
+  color: white;
   background-color: rgba(0, 0, 0, 0);
 }
 
@@ -146,4 +147,24 @@ input[type="text"] {
 
 .top-tvshow-section, .top-film-section, .top-anime-section{
   padding-bottom: 20px;
+}
+
+
+.search-card-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.search-card-overlay img{
+  width: 50%;
+  height: auto;
+}
+
+.search-card-title{
+  padding-top: 10px;
+  color: white;
+  display: flex;
+  justify-content: center;
 }

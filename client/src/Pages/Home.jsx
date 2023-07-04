@@ -3,9 +3,17 @@ import filmBG from '../Assets/filmbg.jpg'
 import showBG from '../Assets/tvbg.jpg'
 import animeBG from '../Assets/animebg.jpg'
 import {Row, Col,Container, Card} from 'react-bootstrap';
-
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  let navigate = useNavigate();
+
+  const router = (route) => {
+    let path = "/" + route;
+    navigate(path);
+  };
+
+
   return (
     <div className='home-container'>
       <div className='media-header-section'>
@@ -13,7 +21,7 @@ const Home = () => {
           <img src={showBG} alt="Card image" />
           <div className='media-card-overlay'>
             <div className='media-card-overlay-title'>TV Shows</div>
-            <div className='media-card-overlay-description'>View popular TV series like GoT</div>  
+            <div className='media-card-overlay-description'>View your watched TV Shows</div>  
           </div>
         </div>
 
@@ -21,7 +29,7 @@ const Home = () => {
           <img src={filmBG} alt="Card image" />
           <div className='media-card-overlay'>
             <div className='media-card-overlay-title'>Films</div>
-            <div className='media-card-overlay-description'>View popular TV series like GoT</div>  
+            <div className='media-card-overlay-description'>View your watched Films</div>  
           </div>
         </div>
 
@@ -29,7 +37,7 @@ const Home = () => {
           <img src={animeBG} alt="Card image" />
           <div className='media-card-overlay'>
             <div className='media-card-overlay-title'>Animation</div>
-            <div className='media-card-overlay-description'>View popular TV series like GoT</div>  
+            <div className='media-card-overlay-description'>View your watched Animations</div>  
           </div>
         </div>
       </div>

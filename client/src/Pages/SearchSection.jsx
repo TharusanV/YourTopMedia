@@ -1,15 +1,17 @@
-import { useNavigate, useLocation } from "react-router-dom";
-import showBG from '../Assets/tvbg.jpg'
+import { useNavigate} from "react-router-dom";
 import LikeIcon from '../Assets/Like_Icon.svg';
 import {Row, Col,Container, Card} from 'react-bootstrap';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
-const SearchSection = () => {
-  const [isHovered, setIsHovered] = useState(false);
+const SearchSection = ({ searchQuery}) => {
+  const [hoveredColumn, setHoveredColumn] = useState(null);
+  
+  const [searchData, setSearchData] = useState([]);
+  
+  const [searchType, setSearchType] = useState('')
 
- // const location = useLocation();
- // const searchValue = location.state;
+  const mediaTypes = [{name:"Film"}, {name:"Anime"}, {name:"TVShows"}];
 
   let navigate = useNavigate();
 
@@ -18,30 +20,199 @@ const SearchSection = () => {
     navigate(path);
   };
 
+  const addToFavMedia = (item) => {
+    if(searchType==="Film"){
+      axios
+      .post("/ratedFilms", {
+        ratedFilmCustomID: item.id,
+        ratedFilmName: item.title,
+        ratedFilmImage: item.image.url,
+        ratedFilmRating: 0,
+        ratedFilmDescription: "",
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+  }
+
+  const fetchData_All = (searchValue) => {
+    fetch(`https://online-movie-database.p.rapidapi.com/title/v2/find?title=${encodeURIComponent(searchValue)}&limit=8&sortArg=moviemeter,asc`, {
+      "method": "GET",
+      "headers": {
+        'X-RapidAPI-Key': `f38a332d90msh0b8c3661d512445p1b7588jsn62d3914576fd`,
+        'X-RapidAPI-Host': `online-movie-database.p.rapidapi.com`,
+      }
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        setSearchData([]);
+        setSearchData(data.results);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+
+  const fetchData_Film = (searchValue) => {
+    fetch(`https://online-movie-database.p.rapidapi.com/title/v2/find?title=${encodeURIComponent(searchValue)}&titleType=movie&limit=8&sortArg=moviemeter,asc`, {
+      "method": "GET",
+      "headers": {
+        'X-RapidAPI-Key': `f38a332d90msh0b8c3661d512445p1b7588jsn62d3914576fd`,
+        'X-RapidAPI-Host': `online-movie-database.p.rapidapi.com`,
+      }
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        setSearchData([]);
+        setSearchData(data.results);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  const fetchData_Anime = (searchValue) => {
+    fetch(`https://online-movie-database.p.rapidapi.com/title/v2/find?title=${encodeURIComponent(searchValue)}&titleType=tvSeries&limit=8&sortArg=moviemeter%2Casc&genre=animation`, {
+      "method": "GET",
+      "headers": {
+        'X-RapidAPI-Key': `f38a332d90msh0b8c3661d512445p1b7588jsn62d3914576fd`,
+        'X-RapidAPI-Host': `online-movie-database.p.rapidapi.com`,
+      }
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        setSearchData([]);
+        setSearchData(data.results);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  const fetchData_TVShow = (searchValue) => {
+    fetch(`https://online-movie-database.p.rapidapi.com/title/v2/find?title=${encodeURIComponent(searchValue)}&titleType=tvSeries&limit=8&sortArg=moviemeter,asc`, {
+      "method": "GET",
+      "headers": {
+        'X-RapidAPI-Key': `ax`,
+        'X-RapidAPI-Host': `online-movie-database.p.rapidapi.com`,
+      }
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        setSearchData([]);
+        setSearchData(data.results);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  const settingTopic = () => {
+    var select = document.getElementById("mediaList");
+    var value = select.options[select.selectedIndex].value;
+    console.log(searchType);
+    setSearchType(value);
+    console.log(searchType);
+  };
+
+  useEffect(() => {
+    if(searchType==="All"){
+      fetchData_All(searchQuery);
+    }
+    else if(searchType==="Film"){
+      fetchData_Film(searchQuery);
+    }
+    else if(searchType==="Anime"){
+      fetchData_Anime(searchQuery);
+    }
+    else if(searchType==="TVShows"){
+      fetchData_TVShow(searchQuery);
+    }
+    else{
+      fetchData_All(searchQuery);
+    }
+  }, [searchQuery]);
+
+  useEffect(() => {
+    if(searchType==="All"){
+      fetchData_All(searchQuery);
+    }
+    else if(searchType==="Film"){
+      fetchData_Film(searchQuery);
+    }
+    else if(searchType==="Anime"){
+      fetchData_Anime(searchQuery);
+    }
+    else if(searchType==="TVShows"){
+      fetchData_TVShow(searchQuery);
+    }
+    else{
+      fetchData_All(searchQuery);
+    }
+  }, [searchType]);
+
   return (
-    <div className="search-container">
-      <Container className='search-section'>
+    <>
+      <div className="search-container">
+        <Container className='search-section'>
           <hr className='title-line'/>
           <div className='top-media-section-header'>
             <h2>Search</h2> 
           </div>
+          <select id="mediaList" onChange={() => settingTopic()}>
+            <option value={"All"}>All</option>
+            {mediaTypes.map((topics) => (
+              <option value={topics.name} key={topics.name}>
+                {topics.name}
+              </option>
+            ))}
+          </select>
           <Row style={{paddingTop: "10px"}}>
-            <Col sm={6} md={4} lg={3}>
-              <Card onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-                <Card.Img src={showBG} alt="Card image" />
-                {isHovered && (
-                  <Card.ImgOverlay className="search-card-overlay" >
-                    <Card.Img src={LikeIcon} alt="Like image" />
-                  </Card.ImgOverlay>
-                )}
-              </Card>
-              <Card.Title className="search-card-title">Title</Card.Title>
-            </Col>
-          
+            {searchData.map((item, index) => {
+              const isColumnHovered = hoveredColumn === index;
+
+              return(
+                <Col key={index} sm={6} md={4} lg={3} style={{paddingBottom: "10px"}}>
+                  <Card
+                    onMouseEnter={() => setHoveredColumn(index)}
+                    onMouseLeave={() => setHoveredColumn(null)}
+                  >
+                    {item.image && item.image.url && (
+                      <Card.Img src={item.image.url} alt="Card image" />
+                    )}
+                    {isColumnHovered && (
+                      <Card.ImgOverlay className="search-card-overlay">
+                        <Card.Img src={LikeIcon} alt="Like image" />
+                      </Card.ImgOverlay>
+                    )}
+                  </Card>
+                  <Card.Title className="search-card-title">{item.title}</Card.Title>
+                </Col>
+              )
+            })}
           </Row>
         </Container>
-    </div>
+      </div>
+    </>
   )
 }
 
 export default SearchSection
+

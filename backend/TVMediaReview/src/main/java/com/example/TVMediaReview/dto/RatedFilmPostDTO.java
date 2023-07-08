@@ -2,13 +2,13 @@ package com.example.TVMediaReview.dto;
 
 public class RatedFilmPostDTO {
 
-	int ratedFilmCustomID;
+	String ratedFilmCustomID;
 	String ratedFilmName;
 	String ratedFilmImage;
 	int ratedFilmRating;
 	long ratedFilmDescription;
 	
-	public RatedFilmPostDTO(int ratedFilmCustomID, String ratedFilmName, String ratedFilmImage, int ratedFilmRating, long ratedFilmDescription) {
+	public RatedFilmPostDTO(String ratedFilmCustomID, String ratedFilmName, String ratedFilmImage, int ratedFilmRating, long ratedFilmDescription) {
 		super();
 		this.ratedFilmCustomID = ratedFilmCustomID;
 		this.ratedFilmName = ratedFilmName;
@@ -17,11 +17,11 @@ public class RatedFilmPostDTO {
 		this.ratedFilmDescription = ratedFilmDescription;
 	}
 
-	public int getRatedFilmCustomID() {
+	public String getRatedFilmCustomID() {
 		return ratedFilmCustomID;
 	}
 
-	public void setRatedFilmCustomID(int ratedFilmCustomID) {
+	public void setRatedFilmCustomID(String ratedFilmCustomID) {
 		this.ratedFilmCustomID = ratedFilmCustomID;
 	}
 

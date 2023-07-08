@@ -1,9 +1,11 @@
 import React from 'react'
+import Navbar from '../Components/Navbar'
 import filmBG from '../Assets/filmbg.jpg'
 import showBG from '../Assets/tvbg.jpg'
 import animeBG from '../Assets/animebg.jpg'
 import {Row, Col,Container, Card} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
+
 
 const Home = () => {
   let navigate = useNavigate();
@@ -12,9 +14,9 @@ const Home = () => {
     let path = "/" + route;
     navigate(path);
   };
-
-
+  
   return (
+    <>
     <div className='home-container'>
       <div className='media-header-section'>
         <div className='media-card'>
@@ -156,13 +158,9 @@ const Home = () => {
             </Col>
           </Row>
         </Container>
-
-
-
       </div>
-
-
     </div>
+    </>
   )
 }
 

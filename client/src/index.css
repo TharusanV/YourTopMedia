@@ -168,3 +168,14 @@ input[type="text"] {
   display: flex;
   justify-content: center;
 }
+
+select{
+  margin-right: 10px;
+  background: rgb(0, 0, 0);
+  color: white;
+}
+
+select option {
+  background: rgb(0, 0, 0);
+  color: #fff;
+}

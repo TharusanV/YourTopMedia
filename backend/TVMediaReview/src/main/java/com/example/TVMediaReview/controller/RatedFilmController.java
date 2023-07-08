@@ -42,27 +42,60 @@ public class RatedFilmController {
             return new ResponseEntity<>(Optional.ofNullable(null), HttpStatus.BAD_REQUEST);
         }
 
-        RatedFilm newRatedFilm = new RatedFilm(newRatedFilmDTO.getRatedFilmCustomID(),newRatedFilmDTO.getRatedFilmName(),
-                newRatedFilmDTO.getRatedFilmImage(),newRatedFilmDTO.getRatedFilmRating(), newRatedFilmDTO.getRatedFilmDescription());
+        RatedFilm newRatedFilm = new RatedFilm(newRatedFilmDTO.getRatedFilmCustomID(),
+        		newRatedFilmDTO.getRatedFilmName(),
+                newRatedFilmDTO.getRatedFilmImage(),
+                newRatedFilmDTO.getRatedFilmRating(), 
+                newRatedFilmDTO.getRatedFilmDescription());
         ratedFilmService.addRatedFilm(newRatedFilm);
         return new ResponseEntity<>(Optional.ofNullable(newRatedFilm), HttpStatus.CREATED);
 
     }
+    
+    
+    
 
+    //Get Film by ID
     @GetMapping("/ratedFilm/{ratedFilmID}")
     public Optional<RatedFilm> getRatedFilmByRatedFilmID(@PathVariable(value = "ratedFilmID") long ratedFilmID) {
         return ratedFilmService.findByRatedFilmID(ratedFilmID);
     }
 
+    //Delete Film by ID
     @DeleteMapping("/ratedFilm/{ratedFilmID}")
-    public String deleteRatedFilm(@PathVariable(value = "ratedFilmID") int RatedFilmID) {
-        ratedFilmService.deleteRatedFilm(RatedFilmID);
+    public String deleteRatedFilmByID(@PathVariable(value = "ratedFilmID") int RatedFilmID) {
+        ratedFilmService.deleteRatedFilmByID(RatedFilmID);
         return "Film Deleted";
     }
 
+    //Update Note by ID
     @PutMapping("/ratedFilm/updateRatedFilmByID/{ratedFilmID}")
     public RatedFilm updateRatedFilmByID(@PathVariable Long ratedFilmID, @RequestBody RatedFilm ratedFilm) {
         return ratedFilmService.updateRatedFilmByID(ratedFilmID, ratedFilm);
+    }
+    
+    
+    
+    
+    
+    
+    
+    // Get Film by CustomID
+    @GetMapping("/ratedFilm/findByRatedFilmCustomID")
+    public Optional<RatedFilm> getRatedFilmByCustomID(@RequestParam String ratedFilmCustomID) {
+        return Optional.ofNullable(ratedFilmService.findByRatedFilmCustomID(ratedFilmCustomID));
+    }
+
+    // Update ratedFilm
+    @PutMapping("/ratedFilm/updateByRatedFilmCustomID/{ratedFilmCustomID}")
+    public RatedFilm updateRatedFilmByCustomID(@PathVariable String ratedFilmCustomID, @RequestBody RatedFilm ratedFilm) {
+        return ratedFilmService.updateRatedFilmByRatedFilmCustomID(ratedFilmCustomID, ratedFilm);
+    }
+
+    // Delete a ratedFilm by ratedFilmCustomID
+    @DeleteMapping("/ratedFilm/deleteRatedFilmByRatedFilmCustomID/{ratedFilmCustomID}")
+    public void deleteRatedFilmByRatedFilmCustomID(@PathVariable(value = "ratedFilmCustomID") String ratedFilmCustomID) {
+        ratedFilmService.deleteRatedFilmByRatedFilmCustomID(ratedFilmCustomID);
     }
 
 }

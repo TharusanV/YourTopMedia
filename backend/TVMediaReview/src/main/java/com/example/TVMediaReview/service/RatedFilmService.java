@@ -31,11 +31,13 @@ public class RatedFilmService {
 		ratedFilmRepository.save(newRatedFilm);
 	}
 
+	
+	
 	public Optional<RatedFilm> findByRatedFilmID(Long ratedFilmID) {
 		return ratedFilmRepository.findById(ratedFilmID);
 	}
 
-	public void deleteRatedFilm(long ratedFilmID) {
+	public void deleteRatedFilmByID(long ratedFilmID) {
 		RatedFilm ratedFilm = ratedFilmRepository.findById(ratedFilmID)
 				.orElseThrow(() -> new ResourceNotFoundException("RatedFilm", "ratedFilmID", ratedFilmID));
 		ratedFilmRepository.delete(ratedFilm);
@@ -50,6 +52,31 @@ public class RatedFilmService {
 		existingRatedFilm.setRatedFilmDescription(ratedFilm.getRatedFilmDescription());
 		return ratedFilmRepository.save(existingRatedFilm);
 	}
+	
+	
+	
+	public RatedFilm findByRatedFilmCustomID(String ratedFilmCustomID) {
+		return ratedFilmRepository.findByRatedFilmCustomID(ratedFilmCustomID);
+	}
+
+
+	public RatedFilm updateRatedFilmByRatedFilmCustomID(String ratedFilmCustomID, RatedFilm ratedFilm) {
+		RatedFilm existingRatedFilm = ratedFilmRepository.findByRatedFilmCustomID(ratedFilmCustomID);
+		existingRatedFilm.setRatedFilmName(ratedFilm.getRatedFilmName());
+		existingRatedFilm.setRatedFilmImage(ratedFilm.getRatedFilmImage());
+		existingRatedFilm.setRatedFilmRating(ratedFilm.getRatedFilmRating());
+		existingRatedFilm.setRatedFilmDescription(ratedFilm.getRatedFilmDescription());
+		return ratedFilmRepository.save(existingRatedFilm);
+	}
+
+	public void deleteRatedFilmByRatedFilmCustomID(String ratedFilmCustomID) {
+		RatedFilm existingRatedFilm = ratedFilmRepository.findByRatedFilmCustomID(ratedFilmCustomID);
+		ratedFilmRepository.delete(existingRatedFilm);
+	}
+	
+	
+	
+	
 
 
 }

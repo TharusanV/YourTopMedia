@@ -22,7 +22,7 @@ public class RatedFilm implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long ratedFilmID;
 	
-	int ratedFilmCustomID;
+	String ratedFilmCustomID;
 
 	@NotBlank
 	String ratedFilmName;
@@ -37,7 +37,7 @@ public class RatedFilm implements Serializable {
 
 	}
 
-	public RatedFilm(int ratedFilmCustomID, @NotBlank String ratedFilmName, String ratedFilmImage, int ratedFilmRating, long ratedFilmDescription) {
+	public RatedFilm(String ratedFilmCustomID, @NotBlank String ratedFilmName, String ratedFilmImage, int ratedFilmRating, long ratedFilmDescription) {
 		super();
 		this.ratedFilmCustomID = ratedFilmCustomID;
 		this.ratedFilmName = ratedFilmName;
@@ -54,11 +54,11 @@ public class RatedFilm implements Serializable {
 		this.ratedFilmID = ratedFilmID;
 	}
 
-	public int getRatedFilmCustomID() {
+	public String getRatedFilmCustomID() {
 		return ratedFilmCustomID;
 	}
 
-	public void setRatedFilmCustomID(int ratedFilmCustomID) {
+	public void setRatedFilmCustomID(String ratedFilmCustomID) {
 		this.ratedFilmCustomID = ratedFilmCustomID;
 	}
 

@@ -13,16 +13,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
   return (
     <>
       <BrowserRouter>
-        <Navbar />
+        <Navbar onSearch={handleSearch} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/YourMovies" element={<FindFilmSection />} />
           <Route path="/YourTVShows" element={<FindTVShowsSection />} />
           <Route path="/YourAnimations" element={<FindAnimeSection />} />
-          <Route path="/Search" element={<SearchSection />} />
+          <Route path="/Search" element={<SearchSection searchQuery={searchQuery}/>} />
         </Routes>
       </BrowserRouter>
     </>

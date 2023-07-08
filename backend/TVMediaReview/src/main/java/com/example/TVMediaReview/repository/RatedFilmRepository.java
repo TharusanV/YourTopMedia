@@ -9,5 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface RatedFilmRepository extends CrudRepository<RatedFilm, Long> {
 	RatedFilm findByRatedFilmID(Long ratedFilmID);
+	RatedFilm findByRatedFilmCustomID(String ratedFilmCustomID);
+	
 
 }

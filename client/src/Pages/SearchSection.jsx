@@ -2,6 +2,7 @@ import { useNavigate} from "react-router-dom";
 import LikeIcon from '../Assets/Like_Icon.svg';
 import {Row, Col,Container, Card} from 'react-bootstrap';
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 
 const SearchSection = ({ searchQuery}) => {
@@ -37,13 +38,45 @@ const SearchSection = ({ searchQuery}) => {
         console.log(error);
       });
     }
+    else if(searchType==="Anime"){
+      axios
+      .post("/ratedAnimes", {
+        ratedAnimeCustomID: item.id,
+        ratedAnimeName: item.title,
+        ratedAnimeImage: item.image.url,
+        ratedAnimeRating: 0,
+        ratedAnimeDescription: "",
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+    else{
+      axios
+      .post("/ratedTVShows", {
+        ratedTVShowCustomID: item.id,
+        ratedTVShowName: item.title,
+        ratedTVShowImage: item.image.url,
+        ratedTVShowRating: 0,
+        ratedTVShowDescription: "",
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
   }
 
   const fetchData_All = (searchValue) => {
     fetch(`https://online-movie-database.p.rapidapi.com/title/v2/find?title=${encodeURIComponent(searchValue)}&limit=8&sortArg=moviemeter,asc`, {
       "method": "GET",
       "headers": {
-        'X-RapidAPI-Key': `f38a332d90msh0b8c3661d512445p1b7588jsn62d3914576fd`,
+        'X-RapidAPI-Key': `ddd`,
         'X-RapidAPI-Host': `online-movie-database.p.rapidapi.com`,
       }
     })
@@ -65,7 +98,7 @@ const SearchSection = ({ searchQuery}) => {
     fetch(`https://online-movie-database.p.rapidapi.com/title/v2/find?title=${encodeURIComponent(searchValue)}&titleType=movie&limit=8&sortArg=moviemeter,asc`, {
       "method": "GET",
       "headers": {
-        'X-RapidAPI-Key': `f38a332d90msh0b8c3661d512445p1b7588jsn62d3914576fd`,
+        'X-RapidAPI-Key': `ddd`,
         'X-RapidAPI-Host': `online-movie-database.p.rapidapi.com`,
       }
     })
@@ -86,7 +119,7 @@ const SearchSection = ({ searchQuery}) => {
     fetch(`https://online-movie-database.p.rapidapi.com/title/v2/find?title=${encodeURIComponent(searchValue)}&titleType=tvSeries&limit=8&sortArg=moviemeter%2Casc&genre=animation`, {
       "method": "GET",
       "headers": {
-        'X-RapidAPI-Key': `f38a332d90msh0b8c3661d512445p1b7588jsn62d3914576fd`,
+        'X-RapidAPI-Key': `ddd`,
         'X-RapidAPI-Host': `online-movie-database.p.rapidapi.com`,
       }
     })
@@ -151,10 +184,12 @@ const SearchSection = ({ searchQuery}) => {
   }, [searchQuery]);
 
   useEffect(() => {
+    /*
     if(searchType==="All"){
       fetchData_All(searchQuery);
     }
-    else if(searchType==="Film"){
+    */
+    if(searchType==="Film"){
       fetchData_Film(searchQuery);
     }
     else if(searchType==="Anime"){
@@ -177,7 +212,6 @@ const SearchSection = ({ searchQuery}) => {
             <h2>Search</h2> 
           </div>
           <select id="mediaList" onChange={() => settingTopic()}>
-            <option value={"All"}>All</option>
             {mediaTypes.map((topics) => (
               <option value={topics.name} key={topics.name}>
                 {topics.name}
@@ -199,7 +233,7 @@ const SearchSection = ({ searchQuery}) => {
                     )}
                     {isColumnHovered && (
                       <Card.ImgOverlay className="search-card-overlay">
-                        <Card.Img src={LikeIcon} alt="Like image" />
+                        <Card.Img src={LikeIcon} alt="Like image" onClick={() => addToFavMedia(item)}/>
                       </Card.ImgOverlay>
                     )}
                   </Card>

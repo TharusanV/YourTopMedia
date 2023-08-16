@@ -6,11 +6,11 @@ Recently have been getting into watching more movies as of late along with the o
 
 ### Preview:
 Home:
-![image](https://github.com/TharusanV/YourTopMedia/assets/108695481/2fb6c45a-c222-439a-9795-b93f8761485e)
+![image](https://github.com/TharusanV/YourTopMedia/assets/108695481/18409b00-ca8f-4a4d-b723-202b72884a91)
+
 
 Search (with Hover)
-![image](https://github.com/TharusanV/YourTopMedia/assets/108695481/15df4396-d778-46ff-8d95-489d09a15fea)
-
+![image](https://github.com/TharusanV/YourTopMedia/assets/108695481/c617ac83-6ea8-4cd9-9a9f-dd9e22e30924)
 
 ### Technologies used :
     - ReactJS Vite (Front-end)
